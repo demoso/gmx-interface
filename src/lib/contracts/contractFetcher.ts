@@ -7,7 +7,7 @@ import { getFallbackProvider, getProvider } from "../rpc";
  * @param contractInfo
  * @param additionalArgs
  */
-  //此处是一个typescript 形式的函数定义，左边是带有泛型定义，以及输入参数类型，右边是返回一个函数，该函数可以接受多个参数，返回promise
+  //此处是一个typescript 形式的函数定义，左边是带有泛型定义，以及输入参数类型，右边是返回一个函数 `(...args: any): Promise<T>`，该函数可以接受多个参数，返回promise
 export const contractFetcher = <T>(library: Web3Provider | undefined, contractInfo: any, additionalArgs?: any[]) =>  (...args: any): Promise<T> => {
     // eslint-disable-next-line
     const [id, chainId, arg0, arg1, ...params] = args;
