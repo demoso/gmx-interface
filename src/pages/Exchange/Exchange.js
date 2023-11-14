@@ -504,6 +504,16 @@ export const Exchange = forwardRef((props, ref) => {
       fetcher: contractFetcher(library, Router),
     }
   );
+  /**
+   * 默认情况下，key 将作为参数传递给 fetcher。所以下面这 3 个表达式是等价的：
+   * useSWR('/api/user', () => fetcher('/api/user'))
+   * useSWR('/api/user', url => fetcher(url))
+   * useSWR('/api/user', fetcher)
+   * 你可以使用一个 数组 作为参数 key，它包含 fetcher 的多个参数：
+   * const { data: user } = useSWR(['/api/user', token], ([url, token]) => fetchWithToken(url, token))
+   * 你可以直接传递一个对象作为 key，fetcher 也会接收该对象：
+   * const { data: orders } = useSWR({ url: '/api/orders', args: user }, fetcher)
+   */
   //data是匹配的模式，positionRouterApproved才是变量。真正被赋值的是变量positionRouterApproved，而不是模式data。
   //解构也可以用于嵌套结构的对象。如下:
   // obj = {
@@ -517,8 +527,10 @@ export const Exchange = forwardRef((props, ref) => {
   // y // "World"
   // p // ["Hello", {y: "World"}]
   const { data: positionRouterApproved } = useSWR(
+    //请求的唯一 key
     active && [active, chainId, routerAddress, "approvedPlugins", account, positionRouterAddress],
     {
+      //fetcher:一个请求数据的 Promise 返回函数
       fetcher: contractFetcher(library, Router),
     }
   );
