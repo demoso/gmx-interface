@@ -504,7 +504,18 @@ export const Exchange = forwardRef((props, ref) => {
       fetcher: contractFetcher(library, Router),
     }
   );
-
+  //data是匹配的模式，positionRouterApproved才是变量。真正被赋值的是变量positionRouterApproved，而不是模式data。
+  //解构也可以用于嵌套结构的对象。如下:
+  // obj = {
+  //   p: [
+  //     'Hello',
+  //     { y: 'World' }
+  //   ]
+  // };
+  // { p, p: [x, { y }] } = obj;
+  // x // "Hello"
+  // y // "World"
+  // p // ["Hello", {y: "World"}]
   const { data: positionRouterApproved } = useSWR(
     active && [active, chainId, routerAddress, "approvedPlugins", account, positionRouterAddress],
     {
