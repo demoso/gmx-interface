@@ -27,7 +27,8 @@ export const contractFetcher = <T>(library: Web3Provider | undefined, contractIn
     });
 
     let shouldCallFallback = true;
-    //标记函数为异步函数，函数的返回值为promise对象，在异步函数中，可以调用其他的异步函数，使用await关键字 ，await会等待promise完成后直接返回成功的结果
+    //标记函数为异步函数，函数的返回值为promise对象，状态改变后触发回调函数。在异步函数中，可以调用其他的异步函数，使用await关键字 ，await会等待promise完成后直接返回成功的结果，await 需要再async函数中，执行await 会出现等待
+    //async函数返回的 Promise 对象，必须等到内部所有await命令后面的 Promise 对象执行完，才会发生状态改变，除非遇到return语句或者抛出错误。也就是说，只有async函数内部的异步操作执行完，才会执行then方法指定的回调函数。
     const handleFallback = async (resolve, reject, error) => {
       if (!shouldCallFallback) {
         return;
