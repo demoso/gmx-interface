@@ -236,3 +236,11 @@ Use the following syntax to import scss modules:
 
 ---
 kadex  
+
+
+## 函数柯里化（颗粒化）
+![img.png](img.png)
+
+## 闭包
+![img_1.png](img_1.png)
+![img_2.png](img_2.png)
