@@ -27,7 +27,7 @@ export const contractFetcher = <T>(library: Web3Provider | undefined, contractIn
     });
 
     let shouldCallFallback = true;
-
+    //标记函数为异步函数，函数的返回值为promise对象，在异步函数中，可以调用其他的异步函数，使用await关键字 ，await会等待promise完成后直接返回成功的结果
     const handleFallback = async (resolve, reject, error) => {
       if (!shouldCallFallback) {
         return;
