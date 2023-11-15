@@ -498,9 +498,18 @@ export const Exchange = forwardRef((props, ref) => {
 
   const orderBookAddress = getContract(chainId, "OrderBook");
   const routerAddress = getContract(chainId, "Router");
+  //该示例中，useSWR hook 接受一个字符串 key 和一个函数 fetcher。key 是数据的唯一标识符（通常是 API URL），
+  // 并传递给 fetcher。fetcher 可以是任何返回数据的异步函数，你可以使用原生的 fetch 或 Axios 之类的工具。
+  // 基于请求的状态，这个 hook 返回 2 个值：data 和 error。
+  // 首先 从缓存中返回数据（过期的），同时发送 fetch 请求（重新验证），最后得到最新数据 使用 SWR，组件将会不断地、自动获得最新数据流。
+  // UI 也会一直保持快速响应
+  // key: 请求的唯一 key string（或者是 function / array / null） (详情), （高级用法）
+  // fetcher:（可选）一个请求数据的 Promise 返回函数 （详情）
+  // options:（可选）该 SWR hook 的选项对象
   const { data: orderBookApproved } = useSWR(
     active && [active, chainId, routerAddress, "approvedPlugins", account, orderBookAddress],
     {
+      //contractFetcher(library, Router) 返回的函数
       fetcher: contractFetcher(library, Router),
     }
   );

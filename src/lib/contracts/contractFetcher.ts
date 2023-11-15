@@ -1,13 +1,12 @@
 import { ethers } from "ethers";
 import { Web3Provider } from "@ethersproject/providers";
 import { getFallbackProvider, getProvider } from "../rpc";
-/**
- * 在 TypeScript 的类型定义中，=> 用来表示函数的定义，左边是输入类型，需要用括号括起来，右边是输出类型
- * @param library
- * @param contractInfo
- * @param additionalArgs
- */
-  //此处是一个typescript 形式的函数定义，左边是带有泛型定义，以及输入参数类型，右边是返回一个函数 `(...args: any): Promise<T>`，该函数可以接受多个参数，返回promise
+//var contractFetcher = function (a) {
+//     return function (b) {
+//        return a + b;
+//     };
+// };
+//此处闭包的箭头函数，左边是带有泛型定义，以及输入参数类型，右边是返回一个函数 `(...args: any): Promise<T>`，该函数可以接受多个参数，返回promise,就是一个闭包
 export const contractFetcher = <T>(library: Web3Provider | undefined, contractInfo: any, additionalArgs?: any[]) =>  (...args: any): Promise<T> => {
     // eslint-disable-next-line
     const [id, chainId, arg0, arg1, ...params] = args;
